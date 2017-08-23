@@ -1,0 +1,21 @@
+<#macro pageLabHead pager>
+<!--【必须】value=1可以写死-->
+<input type="hidden" name="pager.pageNumber" value="${(pager.pageNumber)!}" />
+<!--【可选】每页显示多少条-->
+<input type="hidden" name="pager.pageSize" value="${(pager.pageSize)!}" />
+</#macro>
+<#macro pageLabFoot pager>
+<div class="panelBar">
+    <div class="pages">
+        <span>显示</span>
+        <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+            <option value="20" <#if pager.pageSize == 20> selected</#if>>20</option>
+            <option value="50" <#if pager.pageSize == 50> selected</#if>>50</option>
+            <option value="100"<#if pager.pageSize == 100> selected</#if>>100</option>
+            <option value="200"<#if pager.pageSize == 200> selected</#if>>200</option>
+        </select>
+        <span>条，共<font style="color:red;font-weight:bold;">${pager.totalRow!}</font>条，共<font style="color:red;font-weight:bold;">${pager.totalPage!}</font>页&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </div>
+    <div class="pagination" targetType="navTab" totalCount="${pager.totalRow!}" numPerPage="${pager.pageSize!}" pageNumShown="10" currentPage="${pager.pageNumber!}"></div>
+</div>
+</#macro>

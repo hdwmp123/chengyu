@@ -1,0 +1,65 @@
+<base href="${CONTEXT_PATH}/" />
+<div class="pageContent">
+    <form method="post" action="sys/user/<#if (user.id)??>update<#else>save</#if>" class="pageForm validate" onsubmit="return validateCallback(this, dialogResetDone)">
+  <input type=hidden id="id" name="id"  value="${(user.id)!}">
+  <input type=hidden name="user.id"  value="${(user.id)!}">
+    <div class="pageFormContent" layoutH="56">
+        <h2 class="contentTitle"><#if (storage.id)??>编辑用户<#else>创建用户</#if></h2>
+        <dl>
+            <dt>用户名：</dt>
+            <dd>
+                <input type="text" name="user.username" value="${(user.username)!}" 
+                        oldValue="${(user.username)!}" onchange="migr.commonCheckStr(this)" class="required" 
+                        remote="sys/user/checkIsNotExist?id=${(user.id)!}"
+                        maxlength="30" <#if (user.id)??>readonly="readonly"</#if>/></dd>
+        </dl>
+        
+        <#if (user.id)! == "">
+            <dl>
+                <dt>密码：</dt>
+                <dd><input type="password" id="pwd" name="user.pwd"   value="" class="required"   maxlength="30"></dd>
+            </dl>
+            
+            <dl>
+                <dt>重复密码：</dt>
+                <dd><input type="password"  name="confirmPassword"   value=""     equalTo='#pwd' class="required"    maxlength="30"></dd>
+            </dl>
+        </#if>
+        <dl>
+            <dt>真实姓名：</dt>
+            <dd><input type="text" name="user.realname"  value="${(user.realname)!}"></dd>
+        </dl>
+        <dl>
+            <dt>手机：</dt>
+            <dd><input type=text name=user.mobile  value="${(user.mobile)!}"></dd>
+        </dl>
+        <dl>
+            <dt>电话：</dt>
+            <dd><input type=text name=user.tel  value="${(user.tel)!}"></dd>
+        </dl>
+        <dl>
+            <dt>Email：</dt>
+            <dd><input type=text name=user.email value="${(user.email)!}"  class="email"></dd>
+        </dl>
+        <dl>
+            <dt>QQ：</dt>
+            <dd><input type=text name=user.qq  value="${(user.qq)!}"  class="number"></dd>
+        </dl>
+        <dl>
+            <dt>账户状态：</dt>
+            <dd>
+                <select class="combox" name=user.inuse>
+                      <option value="0" <#if user?? && user.inuse == 0> selected </#if> >正常</option>
+                      <option value="1" <#if user?? && user.inuse == 1> selected </#if> >停用</option>
+                </select>
+            </dd>
+        </dl>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>

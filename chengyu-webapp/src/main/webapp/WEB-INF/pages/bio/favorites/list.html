@@ -1,0 +1,98 @@
+<#include "../../common/pageLab.html">
+<base href="${CONTEXT_PATH}/" />
+<form id="pagerForm" action="bio/favorites"
+	onsubmit="return navTabSearch(this)" method="post">
+	<@pageLabHead pager/>
+	<!--【可选】其它查询条件，业务有关，有什么查询条件就加什么参数。 也可以在searchForm上设置属性rel=”pagerForm”，js框架会自动把searchForm搜索条件复制到pagerForm中 -->
+	<div class="pageHeader">
+		<div class="searchBar">
+			<table class="searchContent">
+				<tr>
+					<td>关注者： <input type="text" class="focus highlightText"
+						size="40" name="ig_code" value="${(ig_code)!}" alt="Ingress ID" />
+					</td>
+					<td>被关注者： <input type="text" class="focus highlightText"
+						size="40" name="ig_code2" value="${(ig_code2)!}" alt="Ingress ID" />
+					</td>
+					<td>阵营：
+						<select name="ig_camp">
+						    <option value="" <#if !ig_camp?exists>selected="selected"</#if> >全部</option>
+							<option value="0" <#if ig_camp?exists&&ig_camp=='0'>selected="selected"</#if> >启蒙</option>
+							<option value="1" <#if ig_camp?exists&&ig_camp=='1'>selected="selected"</#if> >抵抗</option>
+						</select>
+					</td>
+					<td><div class="button">
+							<div class="buttonContent">
+								<button type="submit">查询</button>
+							</div>
+						</div></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</form>
+<div class="pageContent" style="padding: 0px">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" target="dialog" width="580" height="430"
+				href="bio/favorites/add"><span>新增</span></a></li>
+			<li class="line">line</li>
+			<li><a class="edit" href="bio/favorites/edit?id={sid_obj}"
+				width="580" height="420" target="dialog"><span>修改</span></a></li>
+			<li class="line">line</li>
+			<li><a class="delete" href="bio/favorites/delete"
+				target="selectedTodo" rel="ids" title="确认删除？"><span>删除</span></a></li>
+		</ul>
+	</div>
+
+	<table class="table" layoutH="112">
+		<thead>
+			<tr>
+				<th width="50" align="left"><input type="checkbox" group="ids"
+					class="checkboxCtrl" />行号</th>
+				<th width="80" align="left">OPENID</th>
+				<th width="80" align="left">昵称</th>
+				<th width="80" align="center">头像</th>
+				<th width="80" align="left">Ingress Code</th>
+				<th width="80" align="center">阵营</th>
+				<th width="80" align="center">分割线</th>
+				<th width="80" align="left">OPENID</th>
+				<th width="80" align="left">昵称</th>
+				<th width="80" align="center">头像</th>
+				<th width="80" align="left">Ingress Code</th>
+				<th width="80" align="center">阵营</th>
+			</tr>
+		</thead>
+		<tbody>
+			<#list pager.list as favorites>
+			<tr target="sid_obj" rel="${favorites.id!}"
+				ondblclick="migr.baseMoudleDblick(this)">
+				<td align="left"><input name="ids" type="checkbox"
+					value="${favorites.id!}" /> ${favorites_index + 1}</td>
+
+				<td align="left">${favorites.a_openid!}</td>
+				<td align="left">${favorites.a_nick_name!}</td>
+				<td align="left">
+				<img alt="" src="${favorites.a_avatar_url!}" width="20" height="20">
+				</td>
+				<td align="left">${favorites.a_ig_code!}</td>
+				<td align="left">${favorites.a_ig_camp!}</td>
+				
+				<td align="left">--&gt;</td>
+				
+				<td align="left">${favorites.b_openid!}</td>
+				<td align="left">
+				<img alt="" src="${favorites.b_avatar_url!}" width="20" height="20">
+				</td>
+				<td align="left">${favorites.b_nick_name!}</td>
+				<td align="left">${favorites.b_ig_code!}</td>
+				<td align="left">${favorites.b_ig_camp!}</td>
+				
+			</tr>
+			</#list>
+		</tbody>
+	</table>
+	<@pageLabFoot pager/>
+</div>
+
+

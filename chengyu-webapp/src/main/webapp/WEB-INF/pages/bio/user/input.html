@@ -1,0 +1,94 @@
+<base href="${CONTEXT_PATH}/" />
+<div class="pageContent">
+    <form method="post"
+        action="bio/user/<#if (user.id)??>update<#else>save</#if>"
+        class="pageForm validate"
+        onsubmit="return validateCallback(this, dialogResetDone)">
+        <input type=hidden id="id" name="id" value="${(user.id)!}">
+        <input type=hidden name="user.id" value="${(user.id)!}">
+        <div class="pageFormContent" layoutH="56">
+            <h2 class="contentTitle"><#if
+                (storage.id)??>编辑用户<#else>创建用户</#if></h2>
+            <dl>
+                <dt>昵称：</dt>
+                <dd>
+                    <input type="text" name="user.nick_name"
+                        value="${(user.nick_name)!}"
+                        oldValue="${(user.nick_name)!}"
+                        onchange="migr.commonCheckStr(this)" class="required"
+                        remote="bio/user/checkIsNotExist?id=${(user.id)!}"
+                        maxlength="30" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>性别：</dt>
+                <dd>
+                    <input type="text" name="user.gender"
+                        value="${(user.gender)!}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>语言：</dt>
+                <dd>
+                    <input type=text name="user.language"
+                        value="${(user.language)!}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>国家：</dt>
+                <dd>
+                    <input type=text name="user.country"
+                        value="${(user.country)!}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>省(直辖市)：</dt>
+                <dd>
+                    <input type=text name="user.province"
+                        value="${(user.province)!}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>市(区)：</dt>
+                <dd>
+                    <input type=text name="user.city" value="${(user.city)!}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>Ingress Code：</dt>
+                <dd>
+                    <input type=text name="user.ig_code"
+                        value="${(user.ig_code)!}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>阵营：</dt>
+                <dd>
+                    <input type=text name="user.ig_camp"
+                        value="${(user.ig_camp)!}">
+                </dd>
+            </dl>
+            <dl>
+                <dt>阵营：</dt>
+                <dd>
+                    <input type=text name="user.remark"
+                        value="${(user.remark)!}">
+                </dd>
+            </dl>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">提交</button>
+                        </div>
+                    </div></li>
+                <li><div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">取消</button>
+                        </div>
+                    </div></li>
+            </ul>
+        </div>
+    </form>
+</div>
